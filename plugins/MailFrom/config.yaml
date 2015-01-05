@@ -1,0 +1,17 @@
+id: MailFrom
+name: MailFrom
+key: MailFrom
+version: 0.1
+schema_version: 1
+description: This plugin changes From/Reply-To mail address to specified address.
+author_name: 'Yuji Takayama'
+
+callbacks:
+  mail_filter: >
+    sub {
+      my ( $cb, %params ) = @_;
+      $params{headers}->{From} = MT->config('EmailAddressMain');
+      use Data::Dumper;
+      print STDERR Dumper( $params{headers} );
+      return 1;
+    }
